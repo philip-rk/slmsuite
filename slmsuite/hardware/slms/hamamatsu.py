@@ -172,7 +172,7 @@ class Hamamatsu(SLM):
             this variable may be renamed in a future slmsuite release to
             conform with eventual implementation of this feature in other SLMs.
         """
-        array_size = int(self.shape[1] * self.shape[1])
+        array_size = int(self.shape[0] * self.shape[1])
         array = display.astype(c_uint8)  # TODO: check if this is necessary
 
         write_fmemarray = Lcoslib.Write_FMemArray
@@ -277,7 +277,7 @@ class Hamamatsu(SLM):
         if v != 1:
             raise RuntimeError("Failed to read Hamamatsu SLM mode.")
 
-        return int(mode)
+        return mode.value
 
     @staticmethod
     def _Reboot(board_id):
@@ -325,6 +325,13 @@ class Hamamatsu(SLM):
 
         if v != 1:
             raise RuntimeError("Failed to close Hamamatsu device.")
+        
+    def close(self) -> None:
+        """
+        This needs to exist, but I haven't gotten this to work yet.
+        #TODO: Write a proper close function
+        """
+        pass
 
     @staticmethod
     def _Check_HeadSerial(board_id):
