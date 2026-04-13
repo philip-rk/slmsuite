@@ -379,7 +379,7 @@ class Hamamatsu(SLM):
         if v != 1:
             raise RuntimeError(f"Could not check Hamamatsu temperature (error={v}).")
 
-        return (float(head_temperature), float(controller_temperature))
+        return (head_temperature.value, controller_temperature.value)
 
     def get_led_status(self):
         r"""
