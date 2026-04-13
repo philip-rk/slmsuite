@@ -330,7 +330,8 @@ class Hamamatsu(SLM):
         """
         Closes the connection to the SLM device.
         """
-        self._Close_Device(bID_list=[self.board_id], bID_size=1)
+        bID_list = (c_uint8 * len([self.board_id]))(*[self.board_id])
+        self._Close_Device(bID_list=bID_list, bID_size=1)
 
     @staticmethod
     def _Check_HeadSerial(board_id):
