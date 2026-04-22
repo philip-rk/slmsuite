@@ -173,7 +173,6 @@ class Hamamatsu(SLM):
             conform with eventual implementation of this feature in other SLMs.
         """
         array_size = int(self.shape[0] * self.shape[1])
-        array = display.astype(c_uint8)  # TODO: check if this is necessary
 
         write_fmemarray = Lcoslib.Write_FMemArray
         write_fmemarray.argtyes = [c_uint8, c_uint8*array_size, c_int32, c_uint32, c_uint32, c_uint32]
@@ -181,7 +180,7 @@ class Hamamatsu(SLM):
         # TODO: do python ints need to be converted explicitly to c_uint32?
         v = write_fmemarray(
             self.board_id,
-            array.ctypes.data_as(POINTER(c_uint8* array_size)).contents,
+            display.ctypes.data_as(POINTER(c_uint8* array_size)).contents,
             array_size,
             self.shape[1],
             self.shape[0],
@@ -211,7 +210,6 @@ class Hamamatsu(SLM):
         Reads the current displayed pattern from the SLM.
         """
         display = np.zeros(self.shape, dtype=np.uint8)
-        array = display.astype(c_uint8)  # TODO: check if this is necessary
         array_size = int(self.shape[0] * self.shape[1])
 
         get_display = Lcoslib.Get_Display
@@ -221,7 +219,7 @@ class Hamamatsu(SLM):
             array_size,
             self.shape[1],
             self.shape[0],
-            array.ctypes.data_as(POINTER(c_uint8* array_size)).contents,
+            display.ctypes.data_as(POINTER(c_uint8* array_size)).contents,
         )
 
         if v != 1:
