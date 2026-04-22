@@ -3,7 +3,7 @@ Hardware control for Hamamatsu SLMs in USB/Trigger mode.
 For DVI mode, reset the SLM to DVI mode externally and
 project information onto the appropriate screen using
 :class:`~slmsuite.hardware.slms.screenmirrored.ScreenMirrored`.
-A previous version was tested with Hamamatsu LCOS-SLM X15213-02.
+Tested with Hamamatsu LCOS-SLM X15213.
 
 Important
 ~~~~~~~~~
