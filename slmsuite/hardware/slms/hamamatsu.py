@@ -212,7 +212,7 @@ class Hamamatsu(SLM):
         display = np.zeros(self.shape, dtype=np.uint8)
         array_size = int(self.shape[0] * self.shape[1])
 
-        get_display = Lcoslib.Get_Display
+        get_display = Lcoslib.Check_Disp_IMG
         get_display.argtyes = [c_uint8, c_int32, c_uint32, c_uint32, c_uint8*array_size]
         v = get_display(
             self.board_id,
